@@ -4,7 +4,7 @@ import { logger } from "./logger";
 
 let client: Redis | null = null;
 
-function getRedis(): Redis {
+export function getRedis(): Redis {
   if (!client) {
     logger.debug("Creating Redis client", { url: env.REDIS_URL.replace(/:[^:@]+@/, ":****@") });
     client = new Redis(env.REDIS_URL, { maxRetriesPerRequest: 3 });
