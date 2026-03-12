@@ -22,10 +22,12 @@ RUN npm run build
 # Production stage: minimal image with Chromium for PDF generation
 FROM node:22-bookworm-slim AS runner
 # Chromium + runtime deps for headless PDF (avoid "missing shared library" in slim)
+# redis-server optional: for running Redis in same container (e.g. REDIS_URL=redis://localhost:6379)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     chromium \
     ca-certificates \
     curl \
+    redis-server \
     fonts-liberation \
     libasound2 \
     libatk-bridge2.0-0 \
@@ -46,6 +48,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 ENV NODE_ENV=production
+# Next.js standalone: listen on all interfaces so curl/localhost and external access work
+ENV HOSTNAME=0.0.0.0
+ENV PORT=3000
 
 WORKDIR /app
 COPY --from=builder /app/.next/standalone ./
@@ -54,5 +59,10 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/template ./template
 RUN mkdir -p pdf
 
+# Optional: start Redis in same container then run app (use CMD override to skip)
+COPY scripts/docker-entrypoint.sh /app/docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
+
 EXPOSE 3000
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["node", "server.js"]

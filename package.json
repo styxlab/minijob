@@ -10,6 +10,7 @@
     "test": "vitest run --exclude '**/route.email.integration.test.ts'",
     "test:watch": "vitest --exclude '**/route.email.integration.test.ts'",
     "test:integration": "vitest run app/api/cron/lohnabrechnung/route.email.integration.test.ts",
+    "test:redis": "vitest run lib/redis.integration.test.ts",
     "generate:lohnabrechnung": "tsx scripts/generate-lohnabrechnung.ts"
   },
   "dependencies": {
