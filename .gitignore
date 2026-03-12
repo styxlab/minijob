@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# generated PDFs (for inspection)
+/pdf
+
 # next.js
 /.next/
 /out/

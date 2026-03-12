@@ -1,0 +1,660 @@
+<html lang="de">
+  <head></head>
+  <body>
+    <meta charset="UTF-8" />
+    <meta content="Lexware" name="author" />
+    <meta content="Lohnabrechnung" name="subject" />
+    <meta content="Lexware, Lohnabrechnung" name="keywords" />
+    <title>Lohnabrechnung</title>
+    <style>
+      html {
+        padding-right: 2.1cm;
+      }
+
+      h1.headline {
+        margin-bottom: 1cm;
+        padding-top: 0.5cm;
+      }
+    </style>
+    <style>
+      html {
+        font-family: "Helvetica";
+        font-size: 8pt;
+        line-height: 1.42857143;
+        color: #fff;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      #pageHeader {
+        position: running(pageHeader);
+      }
+
+      .lohnabrechnung {
+        color: #000 !important;
+      }
+
+      .lohnabrechnung + .lohnabrechnung {
+        page-break-before: always;
+      }
+
+      h1.headline {
+        font-family: inherit;
+        font-weight: 700;
+        font-size: 15pt;
+        padding-left: 2.1cm;
+      }
+
+      .table {
+        width: 100%;
+        table-layout: fixed;
+        margin-bottom: 5mm;
+        color: #000;
+      }
+
+      .table,
+      .grid {
+        background-color: transparent;
+        border-collapse: collapse;
+        border-spacing: 0;
+        font-size: 8pt;
+        text-align: left;
+      }
+
+      .table.without-page-breaks * {
+        page-break-inside: avoid;
+        page-break-before: avoid;
+      }
+
+      .table.with-page-breaks {
+        -fs-table-paginate: paginate;
+        -fs-page-break-min-height: 3cm;
+      }
+
+      .table td,
+      .table th,
+      .grid-cell {
+        padding: 0;
+      }
+
+      .table td,
+      .table th {
+        border-bottom: 1px solid #a9a9a9;
+        border-top: 1px solid #a9a9a9;
+        border-collapse: collapse;
+        padding: 3px !important;
+      }
+
+      .table tr {
+        page-break-inside: avoid;
+      }
+
+      .table > tbody > tr > td,
+      .table > tbody > tr > th {
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ccc;
+      }
+
+      .table > tbody > tr > td {
+        line-height: 14px;
+        padding-bottom: 4px;
+        padding-top: 4px;
+      }
+
+      .table td:first-child,
+      .table th:first-child {
+        border-left: 1px solid #a9a9a9;
+      }
+
+      .table td:last-child,
+      .table th:last-child {
+        border-right: 1px solid #a9a9a9;
+      }
+
+      .table.table-text-right th,
+      .table.table-text-right td {
+        text-align: right;
+      }
+
+      .grid {
+        padding-left: 2.1cm;
+      }
+
+      .grid .grid-cell {
+        display: table-cell;
+      }
+
+      .address-block {
+        margin-right: 5mm;
+        height: 45mm;
+      }
+
+      .address-block .sender-address {
+        border-bottom: 1px dotted #666;
+        font-weight: 700;
+        margin-bottom: 0.769em;
+        box-sizing: content-box;
+        height: 8.2mm;
+      }
+
+      .overflow-hidden {
+        /* This is an ugly workaround to make overflow hidden work as openhtmltopdf doesn't support text-overflow */
+        max-width: 100%;
+        overflow: hidden;
+        max-height: 1.4em;
+      }
+
+      .sv-nummer {
+        display: inline-block;
+        min-width: 33.77%;
+      }
+
+      .legend {
+        color: #666;
+        font-size: 7pt;
+        margin: -5mm 0 5mm;
+      }
+
+      .footer-legend {
+        border: none !important;
+      }
+
+      .footer-legend span {
+        color: #666;
+        font-size: 7pt !important;
+      }
+
+      p {
+        orphans: 3;
+        widows: 3;
+        margin: 0 0 10px;
+      }
+
+      address {
+        line-height: 1.42857143;
+        font-style: normal;
+      }
+
+      .text-left {
+        text-align: left !important;
+      }
+
+      .text-right {
+        text-align: right !important;
+      }
+
+      .text-large {
+        font-size: 110% !important;
+      }
+
+      .italic {
+        font-style: italic;
+      }
+
+      .italic td {
+        line-height: 1 !important;
+      }
+
+      .no-border-bottom {
+        border-bottom: 1px solid transparent !important;
+      }
+
+      .no-border-top {
+        border-top: 1px solid transparent !important;
+      }
+
+      .no-border-left {
+        border-left: 1px solid transparent !important;
+      }
+
+      .no-border-right {
+        border-right: 1px solid transparent !important;
+      }
+
+      .explicit-border-left {
+        border-left: 1px solid #a9a9a9;
+      }
+
+      .explicit-border-bottom-small {
+        border-bottom: 1px solid #a9a9a9;
+      }
+
+      .explicit-border-top {
+        border-bottom: 1px solid #a9a9a9;
+      }
+
+      .explicit-border-top-small {
+        border-top: 1px solid #a9a9a9 !important;
+      }
+
+      .width-50 {
+        width: 50%;
+      }
+
+      .display-inline {
+        display: inline;
+      }
+
+      .background-gray {
+        background: #eee !important;
+      }
+    </style>
+
+    <div class="lohnabrechnung">
+      <h1 class="headline" id="pageHeader">
+        Abrechnung für Oktober 2025 - Rosalia Orofino
+      </h1>
+      <div class="folding-mark"></div>
+      <div class="grid" style="margin-bottom: 0.5cm">
+        <div class="grid-cell width-50">
+          <div class="address-block">
+            <address class="sender-address">
+              <div class="overflow-hidden">STRAKA Immobilien vv eGbR</div>
+              <div class="overflow-hidden">
+                Kaiser-Joseph-Str. 254, 79098 Freiburg
+              </div>
+            </address>
+
+            <address class="text-large">
+              <p>
+                <span>Frau</span>
+                <br />
+                <span>Rosalia Orofino</span><br />
+                <span>Haagstr. 7</span><br />
+                <span>61169 Friedberg</span>
+              </p>
+            </address>
+          </div>
+        </div>
+        <div class="grid-cell width-50">
+          <aside>
+            <table class="table">
+              <colgroup>
+                <col style="width: 26%" />
+                <col style="width: 28%" />
+                <col style="width: 23%" />
+                <col style="width: 23%" />
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th>Personal-Nr.</th>
+                  <th>Geburtsdatum</th>
+                  <th>Steuerklasse</th>
+                  <th>Konfession</th>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>03.05.1982</td>
+                  <td>-</td>
+                  <td>ohne</td>
+                </tr>
+                <tr>
+                  <th>KFB</th>
+                  <th>
+                    <span>Freibeträge</span>
+                  </th>
+
+                  <th>Midijob</th>
+                  <th>Mehrfachb.</th>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>- / -</td>
+                  <td>Nein</td>
+                  <td>Nein</td>
+                </tr>
+                <tr>
+                  <th>Vers.-Nr.</th>
+                  <th colspan="2">Krankenkasse</th>
+                  <th>
+                    <span>Anteil PV</span>
+                  </th>
+                </tr>
+                <tr>
+                  <!--SV-Nummer / Krankenkasse in same cell to guarantee sv-number is never clipped-->
+                  <td colspan="3">
+                    <div class="overflow-hidden">
+                      <div class="sv-nummer">52030582O501</div>
+                      <span class="display-inline"
+                        >Knappschaft (allg. Verf. einschl. Minijobs)</span
+                      >
+                    </div>
+                  </td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <th>Pers.-Grp.</th>
+                  <th>Beitragsgruppe</th>
+                  <th>Eintritt</th>
+                  <th>Austritt</th>
+                </tr>
+                <tr>
+                  <td>109</td>
+                  <td>6500</td>
+                  <td>01.09.2025</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <th>Steuer-IdNr.</th>
+                  <th></th>
+                  <th>SV-Tage</th>
+                  <th>Steuertage</th>
+                </tr>
+                <tr>
+                  <td class="explicit-border-left">61392864506</td>
+                  <td></td>
+                  <td>30</td>
+                  <td>0</td>
+                </tr>
+                <tr></tr>
+              </tbody>
+            </table>
+          </aside>
+        </div>
+      </div>
+      <div class="grid">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td
+                class="no-border-top no-border-left no-border-right"
+                colspan="3"
+              >
+                <strong
+                  >Gilt als Entgeltbescheinigung nach § 108 Abs. 3 Satz 1
+                  Gewerbeordnung. Bitte sorgfältig aufbewahren.</strong
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>Auszahlung an: Rosalia Orofino</td>
+              <td>Bank: Sparkasse Oberhessen</td>
+              <td>IBAN: DE52 5185 0079 1028 4801 44</td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table with-page-breaks">
+          <thead>
+            <tr>
+              <th class="background-gray" colspan="9">Entgelt</th>
+            </tr>
+            <tr>
+              <td colspan="4">Bezeichnung</td>
+              <td>Kennz</td>
+              <td>Menge</td>
+              <td>Faktor</td>
+              <td>Prozentsatz</td>
+              <td class="text-right explicit-border-left" colspan="1">
+                Betrag
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                class="explicit-border-top-small explicit-border-bottom-small"
+                colspan="4"
+              >
+                Gehalt
+              </td>
+              <td
+                class="explicit-border-top-small explicit-border-bottom-small"
+              >
+                <span>LSG</span>
+              </td>
+              <td
+                class="explicit-border-top-small explicit-border-bottom-small"
+              >
+                1,00
+              </td>
+              <td
+                class="explicit-border-top-small explicit-border-bottom-small"
+              >
+                260,00&nbsp;€
+              </td>
+              <td
+                class="explicit-border-top-small explicit-border-bottom-small"
+              ></td>
+              <td
+                class="text-right explicit-border-left explicit-border-bottom-small"
+                colspan="1"
+              >
+                260,00&nbsp;€
+              </td>
+            </tr>
+
+            <!-- Sonderreihe für SFN ITEMS -->
+
+            <tr>
+              <th colspan="7">Gesamtbrutto</th>
+              <th class="text-right explicit-border-top" colspan="2">
+                260,00&nbsp;€
+              </th>
+            </tr>
+          </tbody>
+        </table>
+        <p class="legend">
+          <span
+            >Kennzeichen: E = Einmalzahlung, L = Lohnsteuerpflichtig, P =
+            Pauschal versteuert, S = Sozialversicherungspflichtig, F =
+            Frei</span
+          ><br />
+          <span
+            >G = Zählt zum Gesamtbrutto, N = Zählt nicht zum Gesamtbrutto, A =
+            Abfindung, M = Mehrjähriger Bezug</span
+          >
+        </p>
+        <table class="table table-text-right without-page-breaks">
+          <thead>
+            <tr>
+              <th class="background-gray text-left" colspan="8">
+                Steuer/SV Abzüge
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="text-left no-border-bottom no-border-top"></th>
+              <th class="explicit-border-left text-right">Steuerbrutto</th>
+              <th class="explicit-border-left">Lohnsteuer</th>
+              <th>Kirchensteuer</th>
+              <th>Solidaritätsz.</th>
+              <th class="explicit-border-left no-border-bottom"></th>
+              <th
+                class="explicit-border-left no-border-bottom"
+                colspan="2"
+              ></th>
+            </tr>
+            <!--Laufend Steuerbrutto, Lohnsteuer, Kirchensteuer, Soli-->
+            <tr>
+              <td class="text-left no-border-bottom no-border-top">laufend</td>
+              <td class="text-right explicit-border-left no-border-bottom">
+                0,00&nbsp;€
+              </td>
+              <td class="explicit-border-left no-border-bottom">0,00&nbsp;€</td>
+              <td class="no-border-bottom">0,00&nbsp;€</td>
+              <td class="no-border-bottom">0,00&nbsp;€</td>
+              <td
+                class="no-border-bottom no-border-top explicit-border-left"
+              ></td>
+              <td
+                class="no-border-bottom no-border-top explicit-border-left"
+              ></td>
+              <td class="no-border-bottom no-border-top"></td>
+            </tr>
+            <!--Einmalig Steuerbrutto, Lohnsteuer, Kirchensteuer, Soli-->
+            <tr>
+              <td class="text-left no-border-bottom no-border-top">einmalig</td>
+              <td class="explicit-border-left no-border-top text-right">
+                0,00&nbsp;€
+              </td>
+              <td class="explicit-border-left no-border-top">0,00&nbsp;€</td>
+              <td class="no-border-top">0,00&nbsp;€</td>
+              <td class="no-border-top">0,00&nbsp;€</td>
+              <td
+                class="no-border-top no-border-bottom explicit-border-left"
+              ></td>
+              <td
+                class="no-border-top no-border-bottom explicit-border-left"
+              ></td>
+              <td class="no-border-top no-border-bottom">0,00&nbsp;€</td>
+            </tr>
+            <!-- Lst-Jahresausgl. -->
+
+            <tr>
+              <td class="no-border-top">&nbsp;</td>
+              <td colspan="4"></td>
+              <td class="no-border-top"></td>
+              <td class="no-border-top explicit-border-left" colspan="2"></td>
+            </tr>
+            <tr>
+              <th class="no-border-bottom no-border-top"></th>
+              <th class="explicit-border-left">KV</th>
+              <th>RV</th>
+              <th>AV</th>
+              <th>PV</th>
+              <th class="explicit-border-left no-border-bottom"></th>
+              <th
+                class="explicit-border-left no-border-bottom"
+                colspan="2"
+              ></th>
+            </tr>
+            <!--laufend KV, RV, AV, PV (GROSS)-->
+            <tr>
+              <td class="no-border-bottom no-border-top text-left">laufend</td>
+              <td class="no-border-bottom explicit-border-left">
+                260,00&nbsp;€
+              </td>
+              <td class="no-border-bottom">260,00&nbsp;€</td>
+              <td class="no-border-bottom">0,00&nbsp;€</td>
+              <td class="no-border-bottom">0,00&nbsp;€</td>
+              <td
+                class="no-border-bottom no-border-top explicit-border-left"
+              ></td>
+              <td
+                class="no-border-bottom no-border-top explicit-border-left"
+              ></td>
+              <td class="no-border-bottom no-border-top"></td>
+            </tr>
+            <!--einmalig KV, RV, AV, PV (GROSS)-->
+            <tr>
+              <td class="text-left no-border-top explicit-border-bottom-small">
+                einmalig
+              </td>
+              <td
+                class="no-border-top explicit-border-left explicit-border-bottom-small"
+              >
+                0,00&nbsp;€
+              </td>
+              <td class="no-border-top explicit-border-bottom-small">
+                0,00&nbsp;€
+              </td>
+              <td class="no-border-top explicit-border-bottom-small">
+                0,00&nbsp;€
+              </td>
+              <td class="no-border-top explicit-border-bottom-small">
+                0,00&nbsp;€
+              </td>
+              <td
+                class="no-border-top no-border-bottom explicit-border-left"
+              ></td>
+              <td
+                class="no-border-top no-border-bottom explicit-border-left"
+              ></td>
+              <td class="no-border-top no-border-bottom"></td>
+            </tr>
+            <!--laufend KV, RV, AV, PV-->
+            <tr>
+              <td class="text-left no-border-bottom explicit-border-top-small">
+                laufend
+              </td>
+              <td
+                class="text-right explicit-border-left no-border-bottom explicit-border-top-small"
+              >
+                0,00&nbsp;€
+              </td>
+              <td class="no-border-bottom explicit-border-top-small">
+                0,00&nbsp;€
+              </td>
+              <td class="no-border-bottom explicit-border-top-small">
+                0,00&nbsp;€
+              </td>
+              <td class="no-border-bottom explicit-border-top-small">
+                0,00&nbsp;€
+              </td>
+              <td
+                class="no-border-bottom no-border-top explicit-border-left"
+              ></td>
+              <td
+                class="no-border-bottom no-border-top explicit-border-left"
+              ></td>
+              <td class="no-border-bottom no-border-top"></td>
+            </tr>
+            <tr>
+              <td class="text-left no-border-bottom no-border-top">einmalig</td>
+              <td class="explicit-border-left no-border-top">0,00&nbsp;€</td>
+              <td class="no-border-top">0,00&nbsp;€</td>
+              <td class="no-border-top">0,00&nbsp;€</td>
+              <td class="no-border-top">0,00&nbsp;€</td>
+              <td
+                class="no-border-top no-border-bottom explicit-border-left"
+              ></td>
+              <td
+                class="no-border-top no-border-bottom explicit-border-left"
+              ></td>
+              <td class="no-border-top no-border-bottom">0,00&nbsp;€</td>
+            </tr>
+            <tr>
+              <td class="no-border-top"></td>
+              <td colspan="4">&nbsp;</td>
+              <td class="no-border-top"></td>
+              <td class="no-border-top explicit-border-left" colspan="2"></td>
+            </tr>
+            <tr>
+              <th class="text-left">Netto</th>
+              <th colspan="7">260,00&nbsp;€</th>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table with-page-breaks">
+          <thead></thead>
+          <tbody>
+            <tr>
+              <th class="text-large" colspan="6">Auszahlungsbetrag</th>
+              <th class="text-right text-large" colspan="2">260,00&nbsp;€</th>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <table class="table">
+            <tbody>
+              <tr>
+                <th class="background-gray" colspan="8">
+                  Pauschalsteuerpflichtige Entgeltbestandteile (kumuliert)
+                </th>
+              </tr>
+
+              <tr>
+                <td
+                  class="explicit-border-top-small explicit-border-bottom-small"
+                  colspan="6"
+                >
+                  § 40a Absatz 2 EStG (Pauschalsteuer Minijob)
+                </td>
+                <td
+                  class="text-right explicit-border-top-small explicit-border-bottom-small explicit-border-left"
+                  colspan="2"
+                >
+                  260,00&nbsp;€
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
