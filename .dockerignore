@@ -1,0 +1,31 @@
+# Dependencies and build output (rebuilt in container)
+node_modules
+.next
+out
+build
+coverage
+
+# Git and IDE
+.git
+.gitignore
+.cursor
+*.md
+
+# Env and secrets (inject at runtime in Coolify)
+.env
+.env.*
+
+# Generated PDFs (optional; app creates pdf/ at runtime)
+pdf
+
+# Tests and tooling (not needed in production image)
+*.test.ts
+*.test.tsx
+*.spec.ts
+vitest.config.ts
+scripts
+
+# Misc
+.DS_Store
+*.log
+*.pem
