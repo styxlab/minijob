@@ -11,7 +11,8 @@
     "test:watch": "vitest --exclude '**/route.email.integration.test.ts'",
     "test:integration": "vitest run app/api/cron/lohnabrechnung/route.email.integration.test.ts",
     "test:redis": "vitest run lib/redis.integration.test.ts",
-    "generate:lohnabrechnung": "tsx scripts/generate-lohnabrechnung.ts"
+    "generate:lohnabrechnung": "tsx scripts/generate-lohnabrechnung.ts",
+    "cleanup:redis": "tsx scripts/cleanup-redis.ts"
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.700.0",
