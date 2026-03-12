@@ -25,6 +25,7 @@ FROM node:22-bookworm-slim AS runner
 RUN apt-get update && apt-get install -y --no-install-recommends \
     chromium \
     ca-certificates \
+    curl \
     fonts-liberation \
     libasound2 \
     libatk-bridge2.0-0 \
