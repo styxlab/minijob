@@ -85,6 +85,7 @@ export async function POST(request: Request) {
     const rawMessage = [
       "From: " + env.SES_FROM_EMAIL,
       "To: " + env.EMAIL_RECIPIENT,
+      ...(env.SES_REPLY_TO ? ["Reply-To: " + env.SES_REPLY_TO] : []),
       ...(env.EMAIL_RECIPIENT_BCC ? ["Bcc: " + env.EMAIL_RECIPIENT_BCC] : []),
       "Subject: " + subject,
       "MIME-Version: 1.0",

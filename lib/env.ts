@@ -39,6 +39,9 @@ export const env = {
   /** Sender email (must be verified in SES). */
   SES_FROM_EMAIL: getEnv("SES_FROM_EMAIL"),
 
+  /** Optional Reply-To address for the Lohnabrechnung email. */
+  SES_REPLY_TO: process.env.SES_REPLY_TO ?? "",
+
   /** Recipient for the Lohnabrechnung email. */
   EMAIL_RECIPIENT: getEnv("EMAIL_RECIPIENT"),
 
