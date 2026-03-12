@@ -3,7 +3,11 @@ import { env } from "./env";
 import { getMonthNameDe } from "./pdf";
 import { logger } from "./logger";
 
-/** Renders the email body template with {{MONTH_NAME}} and {{YEAR}}. */
+/**
+ * Renders the email body template.
+ * Placeholders: {{MONTH_NAME}}, {{YEAR}}.
+ * Use literal \n in the template for newlines (e.g. in .env: "Line 1\nLine 2").
+ */
 export function renderEmailBody(
   template: string,
   monthName: string,
@@ -11,7 +15,9 @@ export function renderEmailBody(
 ): string {
   return template
     .replace(/\{\{MONTH_NAME\}\}/g, monthName)
-    .replace(/\{\{YEAR\}\}/g, String(year));
+    .replace(/\{\{YEAR\}\}/g, String(year))
+    .replace(/\\n/g, "\n")
+    .replace(/\\r/g, "\r");
 }
 
 export async function sendLohnabrechnungEmail(

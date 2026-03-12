@@ -45,7 +45,7 @@ export const env = {
   /** Optional BCC address for the Lohnabrechnung email. */
   EMAIL_RECIPIENT_BCC: process.env.EMAIL_RECIPIENT_BCC ?? "",
 
-  /** Email body template (plain text). Use {{MONTH_NAME}} and {{YEAR}} as placeholders. */
+  /** Email body template (plain text). Placeholders: {{MONTH_NAME}}, {{YEAR}}. Use \n for newlines (e.g. "Line 1\nLine 2"). */
   EMAIL_BODY_TEMPLATE: getEnv(
     "EMAIL_BODY_TEMPLATE",
     "Hier kommt die Lohnabrechnung für {{MONTH_NAME}} {{YEAR}}. Vielen Dank für Ihre Dienste!"
