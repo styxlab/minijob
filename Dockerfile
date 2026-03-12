@@ -59,9 +59,16 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/template ./template
 RUN mkdir -p pdf
 
-# Optional: start Redis in same container then run app (use CMD override to skip)
-COPY scripts/docker-entrypoint.sh /app/docker-entrypoint.sh
-RUN chmod +x /app/docker-entrypoint.sh
+# Entrypoint: optionally start Redis in same container (USE_REDIS_IN_CONTAINER=1) then run app
+RUN printf '%s\n' \
+    '#!/bin/sh' \
+    'set -e' \
+    'if [ -n "${USE_REDIS_IN_CONTAINER}" ] && command -v redis-server >/dev/null 2>&1; then' \
+    '  redis-server --daemonize yes' \
+    '  for i in 1 2 3 4 5; do redis-cli ping 2>/dev/null && break; sleep 1; done' \
+    'fi' \
+    'exec "$@"' \
+    > /app/docker-entrypoint.sh && chmod +x /app/docker-entrypoint.sh
 
 EXPOSE 3000
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
